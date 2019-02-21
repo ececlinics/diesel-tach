@@ -8,8 +8,8 @@
 #ifndef BDA_H_
 #define BDA_H_
 
-#define DR BIT0
-#define window 180
+#define DR BIT0     //
+#define window 180  //
 
 
 #endif /* BDA_H_ */
