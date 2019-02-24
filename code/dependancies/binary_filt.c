@@ -13,15 +13,15 @@ uint8_t dyn_window_filt(uint8_t input){
 	//calculate current pulse width
 	if(input==1)
 		pulse_sum += 1;
-	else{		
+	else if (pulse_sum>0){
 		pulse_history[next_pulse_index]=pulse_sum;
 		pulse_sum = 0;
 		
 		//increment pulse history index
-		if(next_data_index==MAX_PULSEWIDTH_HISTORY-1)
-			next_pulse_index += 1;
+		if(next_pulse_index==MAX_PULSEWIDTH_HISTORY-1)
+		    next_pulse_index = 0;
 		else
-			next_pulse_index = 0;
+			next_pulse_index += 1;
 	}
 	
 	
@@ -37,25 +37,32 @@ uint8_t dyn_window_filt(uint8_t input){
 			dyn_sum += data_history[i];
 		}
 	}
-	else{//dynamic window does wrap around
+	else if(pulse_width<MAX_DATA_HISTORY){//dynamic window does wrap around
 		for(i=MAX_DATA_HISTORY-1+next_data_index-pulse_width;i!=next_data_index+1;i++){//sums the dynamic window
 			if(i == MAX_DATA_HISTORY)
 				i = 0;
 			dyn_sum += data_history[i];
 		}
 	}
+    else{//dynamic window does wrap around
+        for(i=next_data_index+2;i!=next_data_index+1;i++){//sums the dynamic window
+            if(i == MAX_DATA_HISTORY)
+                i = 0;
+            dyn_sum += data_history[i];
+        }
+    }
 
 	
 	
 	//increment data history index
 	if(next_data_index==MAX_DATA_HISTORY-1)
-		next_data_index += 1;
+	    next_data_index = 0;
 	else
-		next_data_index = 0;
+		next_data_index += 1;
 	
 	
 	// return data 1 or 0
-	if(dyn_sum>pulse_width/2)
+	if(dyn_sum>pulse_width>>1)
 		return 1;
 	else
 		return 0;

@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 //filter settings
-#define MAX_DATA_HISTORY 250
+#define MAX_DATA_HISTORY 80
 #define MAX_PULSEWIDTH_HISTORY 5	
 
 uint8_t dyn_window_filt(uint8_t input);
