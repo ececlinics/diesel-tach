@@ -12,20 +12,20 @@ int main(void)
     BCSCTL1 = CALBC1_16MHZ; // Set range
     DCOCTL = CALDCO_16MHZ; // Set DCO step + modulation*/
 
-    //PWM
-    P1DIR |= BIT2;
-    P1SEL |= BIT2;
-    TA0CCTL1 = OUTMOD_7;
-    TA0CCR0 = (10000 - 1);
-    TA0CCR1 = 5000;
-    TA0CTL = (TASSEL_2 | MC_1);
+    // TIMER INTERRUPT
+    TA1CCTL0 = CCIE;                             // CCR0 interrupt enabled
+    TA1CTL = TASSEL_2 + MC_1;           // SMCLK/8, upmode
+    TA1CCR0 =  500;                     // 12.5 Hz
 
-    while(1){
-        if(dyn_window_filt(P1IN & BIT0)){
-            P1OUT |= BIT1;
-        }
-        else{
-            P1OUT &= ~BIT1;
-        }
-    }
+    _BIS_SR(CPUOFF + GIE);          // Enter LPM0 w/ interrupt
+
 }
+
+// Timer 1 A0 interrupt service routine
+#pragma vector = TIMER1_A0_VECTOR
+__interrupt void Timer1_A0_ISR( void )
+{
+    P1OUT = (P1OUT & ~BIT1)|(dyn_window_filt(P1IN & BIT0)<<1 & BIT1);
+}
+
+

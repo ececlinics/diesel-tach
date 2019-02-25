@@ -38,7 +38,7 @@ uint8_t dyn_window_filt(uint8_t input){
 		}
 	}
 	else if(pulse_width<MAX_DATA_HISTORY){//dynamic window does wrap around
-		for(i=MAX_DATA_HISTORY-1+next_data_index-pulse_width;i!=next_data_index+1;i++){//sums the dynamic window
+		for(i=MAX_DATA_HISTORY+1+next_data_index-pulse_width;i!=next_data_index+1;i++){//sums the dynamic window
 			if(i == MAX_DATA_HISTORY)
 				i = 0;
 			dyn_sum += data_history[i];
