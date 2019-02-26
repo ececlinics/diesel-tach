@@ -23,8 +23,7 @@ int main(void)
 
 // Timer 1 A0 interrupt service routine
 #pragma vector = TIMER1_A0_VECTOR
-__interrupt void Timer1_A0_ISR( void )
-{
+__interrupt void Timer1_A0_ISR( void ){
     P1OUT = (P1OUT & ~BIT1)|(dyn_window_filt(P1IN & BIT0)<<1 & BIT1);
 }
 
