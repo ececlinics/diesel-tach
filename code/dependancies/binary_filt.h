@@ -1,9 +1,7 @@
-/*
- * binary_filt.h
- *
- *  Created on: Feb 19, 2019
- *      Author: Jack
- */
+/**
+* @author Robert Page
+* @date 2/21/2019
+*/
 
 #ifndef BINARY_FILT_H_
 #define BINARY_FILT_H_

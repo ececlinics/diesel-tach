@@ -1,3 +1,8 @@
+/**
+* @author Robert Page
+* @date 2/21/2019
+*/
+
 #include "binary_filt.h"
 
 uint8_t dyn_window_filt(uint8_t input){

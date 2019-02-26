@@ -1,3 +1,9 @@
+/**
+* @author Robert Page
+* @date 2/21/2019
+*/
+
+
 #include <stdint.h>
 #include <msp430.h>
 #include "binary_filt.h"
