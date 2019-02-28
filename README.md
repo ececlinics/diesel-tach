@@ -2,7 +2,7 @@
 This is the main directory for the diesel tachometer project. The objective of this project is to design an adapter and mount for a diesel engine tachometer sensor. More specifically, the team is designing a better filter for the tachometer circuit. This repository will feature any and all code development for the project.
 
 # Directory
-* [CAD files]('CAD files'/)
+* [CAD files]("CAD files"/)
 * [code](code/)
 * [scripts](scripts/)
 
