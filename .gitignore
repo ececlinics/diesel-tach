@@ -3,3 +3,9 @@
 RemoteSystemsTempFiles/
 diesel-tach/
 code/.vs/
+*.lkf
+*.obl
+ideastm8project_vector.c
+*.xls
+/.Idea_Groups/
+/.Idea_Temp/
