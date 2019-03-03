@@ -7,5 +7,7 @@ code/.vs/
 *.obl
 ideastm8project_vector.c
 *.xls
-/.Idea_Groups/
-/.Idea_Temp/
+/code/.Idea_Groups/
+/code/.Idea_Temp/
+*.prjsm8
+*.o
