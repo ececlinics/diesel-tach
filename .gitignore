@@ -1,8 +1,6 @@
 # Folders
 /.metadata/
 /.jxbrowser-data/
-/diesel-tach/
-/RemoteSystemsTempFiles/
 
 # Extensions
 *.lkf
@@ -10,6 +8,8 @@
 *.xls
 
 # Visual Studio
+/diesel-tach/
+/RemoteSystemsTempFiles/
 /code/.vs/
 
 # ST Visual Develop
