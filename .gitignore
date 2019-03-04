@@ -4,36 +4,30 @@
 *.xls
 
 # Code Composer Studio
-*/.metadata/
-*/.jxbrowser-data/
-*/.ccsproject/
-*/.cproject/
-*/.settings/
-*/dynamic-filter/Debug/
-*/dynamic-filter/targetConfigs/
-*.d
-*.obj
-*.mk
-*.cmd
-*.ccxml
-*.txt
+*/metadata
+*/jxbrowser-data
+*/ccsproject
+*/cproject
+*/settings
+*/Debug
+*/targetConfigs
 
 
 # Visual Studio
-/diesel-tach/
-/RemoteSystemsTempFiles/
-/code/.vs/
+diesel-tach/
+RemoteSystemsTempFiles/
+code/.vs/
 
 # ST Visual Develop
-/code/Debug/
-/code/Release/
+code/Debug/
+code/Release/
 *.dep
 *.wed
 stm8_interrupt_vector.c
 
 # Cosmic STM
-/code/.Idea_Groups/
-/code/.Idea_Temp/
+code/.Idea_Groups/
+code/.Idea_Temp/
 *.prjsm8
 *.o
 ideastm8project*
