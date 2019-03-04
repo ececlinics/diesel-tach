@@ -9,6 +9,8 @@ Project Files/.jxbrowser-data/
 Project Files/.ccsproject/
 Project Files/.cproject/
 Project Files/.settings/
+Project Files/dynamic filter/Debug/
+Project Files/dynamic filter/targetConfigs/
 *.d
 *.obj
 *.mk
