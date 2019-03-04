@@ -1,13 +1,27 @@
+# Folders
 /.metadata/
 /.jxbrowser-data/
-RemoteSystemsTempFiles/
-diesel-tach/
-code/.vs/
+/diesel-tach/
+/RemoteSystemsTempFiles/
+
+# Extensions
 *.lkf
 *.obl
-ideastm8project_vector.c
 *.xls
+
+# Visual Studio
+/code/.vs/
+
+# ST Visual Develop
+/code/Debug/
+/code/Release/
+*.dep
+*.wed
+
+# Cosmic STM
 /code/.Idea_Groups/
 /code/.Idea_Temp/
 *.prjsm8
 *.o
+ideastm8project*
+stm8_interrupt_vector.c
