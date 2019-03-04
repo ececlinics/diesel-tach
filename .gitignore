@@ -9,25 +9,26 @@
 */ccsproject
 */cproject
 */settings
-*/Debug
-*/targetConfigs
+**/dynamic-filter/Debug
+**/dynamic-filter/targetConfigs
+*.cmd
 
 
 # Visual Studio
 diesel-tach/
 RemoteSystemsTempFiles/
-code/.vs/
+**/.vs/
 
 # ST Visual Develop
-code/Debug/
-code/Release/
+**/Debug/
+**/Release/
 *.dep
 *.wed
 stm8_interrupt_vector.c
 
 # Cosmic STM
-code/.Idea_Groups/
-code/.Idea_Temp/
+**/.Idea_Groups/
+**/.Idea_Temp/
 *.prjsm8
 *.o
 ideastm8project*
