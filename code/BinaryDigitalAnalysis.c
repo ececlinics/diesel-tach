@@ -1,38 +1,13 @@
 #include <msp430.h>
-<<<<<<< HEAD
-#include "BDA.h"
-#include <stdint.h>
-=======
 #include <stdint.h>
 #include "BDA.h"
 #define MAX_DATA_HISTORY 500
 #define MAX_PULSEWIDTH_HISTORY 5
->>>>>>> 5d83ede4b4cf5c533ee60fe09463de7bf7d62531
 
 int BinaryDigitalAnalysis(uint8_t output);
 
 int main(void)
 {
-<<<<<<< HEAD
-    WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
-    P1DIR |= BIT1; //1.1 data output
-    P1OUT |= BIT1; //1.1 data outpu
-    P1DIR &= ~DR; //1.0 data input
-
-    while(1){
-        //BinaryDigitalAnalysis(P1IN & ~DR);
-        if(dyn_window_filt(P1IN & DR))
-        {
-            P1OUT |= BIT1;
-        }
-        else
-        {
-            P1OUT &= ~BIT1;
-        }
-
-    }
-    return 0;
-=======
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	P1DIR |= BIT1; //1.1 data output
 	P1DIR &= ~DR; //1.0 data input
@@ -41,7 +16,6 @@ int main(void)
 	    BinaryDigitalAnalysis(P1IN & ~DR);
 
 	return 0;
->>>>>>> 5d83ede4b4cf5c533ee60fe09463de7bf7d62531
 }
 
 int BinaryDigitalAnalysis(uint8_t input)
@@ -73,25 +47,16 @@ uint8_t dyn_window_filt(uint8_t input){
     static uint8_t data_history[MAX_DATA_HISTORY];
     static uint8_t pulse_history[MAX_PULSEWIDTH_HISTORY];
     static uint8_t next_data_index = 0, next_pulse_index = 0, pulse_sum = 0;
-<<<<<<< HEAD
-    uint8_t i,pulse_width = 0, dyn_sum = 0;
-
-=======
     uint8_t i, pulse_width = 0, dyn_sum = 0;
     
->>>>>>> 5d83ede4b4cf5c533ee60fe09463de7bf7d62531
     //update history array
     data_history[next_data_index] = input;
 
     //calculate current pulse width
     if(input == 1)
         pulse_sum += 1;
-<<<<<<< HEAD
-    else{
-=======
     else
     {
->>>>>>> 5d83ede4b4cf5c533ee60fe09463de7bf7d62531
         pulse_history[next_pulse_index]=pulse_sum;
         pulse_sum = 0;
 
@@ -129,13 +94,8 @@ uint8_t dyn_window_filt(uint8_t input){
 
 
     //increment data history index
-<<<<<<< HEAD
-    if(next_data_index==MAX_DATA_HISTORY-1)
-        next_data_index += 1;
-=======
     if(next_data_index == MAX_DATA_HISTORY - 1)
         next_data += 1;
->>>>>>> 5d83ede4b4cf5c533ee60fe09463de7bf7d62531
     else
         next_data_index = 0;
 
