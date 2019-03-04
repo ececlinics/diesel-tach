@@ -17,6 +17,7 @@
 /code/Release/
 *.dep
 *.wed
+stm8_interrupt_vector.c
 
 # Cosmic STM
 /code/.Idea_Groups/
@@ -24,4 +25,3 @@
 *.prjsm8
 *.o
 ideastm8project*
-stm8_interrupt_vector.c
