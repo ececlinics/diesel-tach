@@ -3,6 +3,7 @@
  * Copyright (c) 2002-2005 STMicroelectronics
  */
 
+#include <cstdint>
 
 main()
 {

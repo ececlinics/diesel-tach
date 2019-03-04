@@ -23,6 +23,8 @@ RemoteSystemsTempFiles/
 **/Debug/
 **/Release/
 *.dep
+*.stp
+*.stw
 *.wed
 stm8_interrupt_vector.c
 
