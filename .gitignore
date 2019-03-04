@@ -4,13 +4,13 @@
 *.xls
 
 # Code Composer Studio
-/code/Project Files/.metadata/
-/code/Project Files/.jxbrowser-data/
-/code/Project Files/.ccsproject/
-/code/Project Files/.cproject/
-/code/Project Files/.settings/
-/code/Project Files/dynamic filter/Debug/
-/code/Project Files/dynamic filter/targetConfigs/
+*/.metadata/
+*/.jxbrowser-data/
+*/.ccsproject/
+*/.cproject/
+*/.settings/
+*/dynamic-filter/Debug/
+*/dynamic-filter/targetConfigs/
 *.d
 *.obj
 *.mk
