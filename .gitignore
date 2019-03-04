@@ -1,11 +1,21 @@
-# Folders
-/.metadata/
-/.jxbrowser-data/
-
 # Extensions
 *.lkf
 *.obl
 *.xls
+
+# Code Composer Studio
+Project Files/.metadata/
+Project Files/.jxbrowser-data/
+Project Files/.ccsproject/
+Project Files/.cproject/
+Project Files/.settings/
+*.d
+*.obj
+*.mk
+*.cmd
+*.ccxml
+*.txt
+
 
 # Visual Studio
 /diesel-tach/
