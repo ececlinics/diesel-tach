@@ -22,6 +22,7 @@ RemoteSystemsTempFiles/
 # ST Visual Develop
 **/Debug/
 **/Release/
+**/stm8l00j3_Programmer
 *.dep
 *.stp
 *.stw
