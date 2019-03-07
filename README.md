@@ -4,6 +4,7 @@ This is the main directory for the diesel tachometer project. The objective of t
 # Directory
 * [CAD files](CAD/)
 * [code](code/)
+* [docs](docs/)
 * [scripts](scripts/)
 
 # Intro
