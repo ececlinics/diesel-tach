@@ -8,6 +8,8 @@
 #include <msp430.h>
 #include "binary_filt.h"
 
+uint8_t i = 0, period;
+
 int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
@@ -30,7 +32,21 @@ int main(void)
 // Timer 1 A0 interrupt service routine
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void Timer1_A0_ISR( void ){
-    P1OUT = (P1OUT & ~BIT1)|(dyn_window_filt(P1IN & BIT0)<<1 & BIT1);
+    period = calc_period(dyn_window_filt(P1IN & BIT0));
+
+    // software PWM
+    if(i>=period>>1)
+        P1OUT &= ~BIT1;
+    else
+        P1OUT |= BIT1;
+
+    //increment i
+    if(i>period-1)
+        i = 0;
+    else
+        i++;
+
+    //P1OUT = (P1OUT & ~BIT1)|(dyn_window_filt(P1IN & BIT0)<<1 & BIT1);
 }
 
 
