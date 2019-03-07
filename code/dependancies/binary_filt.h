@@ -34,6 +34,7 @@ uint8_t dyn_window_filt(uint8_t input);
 * @return period of input in unit of samples
 *
 * @warning max period is 255 because of uint8_t 
+* @warning needs revision, two buffers or better tracking of last value.
 */
 uint8_t calc_period(uint8_t input);
 
