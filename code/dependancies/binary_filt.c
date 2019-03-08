@@ -1,15 +1,5 @@
 #include "binary_filt.h"
 
-/**
-* @brief binary filter, sets dynamic window to 50% of the pulse width
-*
-* designed to take input from a GPIO pin, where the GPIO pin is receiving a noisy square wave. The filter will establish a buffer of the previous MAX_DATA_HISTORY samples, and keep a buffer of the previous MAX_PULSEWIDTH_HISTORY pulse widths
-*
-* @param input input desired to be filtered, designed for only binary inputs
-*
-* @author Robert Page
-* @date 2/21/2019
-*/
 uint8_t dyn_window_filt(uint8_t input){
 	
 	static uint8_t data_history[MAX_DATA_HISTORY];
