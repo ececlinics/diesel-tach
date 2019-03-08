@@ -1,5 +1,7 @@
 #include "binary_filt.h"
 
+static uint8_t median_filt(uint8_t width, uint8_t * start);
+
 uint8_t dyn_window_filt(uint8_t input){
 	
 	static uint8_t data_history[MAX_DATA_HISTORY];
@@ -63,7 +65,6 @@ uint8_t dyn_window_filt(uint8_t input){
 
 uint8_t calc_period(uint8_t input){
 	static uint8_t sum_period = 0, period_history[MEDIAN_WIDTH], last_input = 0, next_data_index = 0;
-	uint8_t i, j, temp;
 	
 	//sums the period and 
 	if(last_input == 0 && input == 1){
@@ -77,21 +78,32 @@ uint8_t calc_period(uint8_t input){
 	}
 	else{
 		sum_period++;
+	}	
+	
+	last_input = input;
+	
+	return median_filt(MEDIAN_WIDTH, period_history);
+}
+
+static uint8_t median_filt(uint8_t width, uint8_t * start){
+	uint8_t i, j, temp, buffer[width];
+	
+	//copy array
+	for(i=0;i<width;i++){
+		buffer[i] = start[i];
 	}
 	
-    // sorts period history array
-    for(i=0; i<MEDIAN_WIDTH-1; i++) {
-        for(j=i+1; j<MEDIAN_WIDTH; j++) {
-            if(period_history[j] < period_history[i]) {
+	//sort buffer
+    for(i=0; i<width-1; i++) {
+        for(j=i+1; j<width; j++) {
+            if(buffer[j] < buffer[i]) {
                 // swap elements
-                temp = period_history[i];
-                period_history[i] = period_history[j];
-                period_history[j] = temp;
+                temp = buffer[i];
+                buffer[i] = buffer[j];
+                buffer[j] = temp;
             }
         }
     }
 	
-	last_input = input;
-	
-	return period_history[2];
+	return buffer[width>>1];
 }
