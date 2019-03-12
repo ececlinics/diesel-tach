@@ -1,9 +1,6 @@
-/**
-* @author Robert Page
-* @date 2/21/2019
-*/
-
 #include "binary_filt.h"
+
+static uint8_t median_filt(uint8_t width, uint8_t * start);
 
 uint8_t dyn_window_filt(uint8_t input){
 	
@@ -35,7 +32,7 @@ uint8_t dyn_window_filt(uint8_t input){
 	//find max pulse width out of buffer
 	for(i = 0;i<MAX_PULSEWIDTH_HISTORY;i++){
 		if(pulse_width<pulse_history[i])
-			pulse_width = pulse_history[i];
+			pulse_width = pulse_history[i]>>1;
 	}
 	
 	// sum dynamic window
@@ -64,4 +61,49 @@ uint8_t dyn_window_filt(uint8_t input){
 		return 1;
 	else
 		return 0;
+}
+
+uint8_t calc_period(uint8_t input){
+	static uint8_t sum_period = 0, period_history[MEDIAN_WIDTH], last_input = 0, next_data_index = 0;
+	
+	//sums the period and 
+	if(last_input == 0 && input == 1){
+		period_history[next_data_index] = sum_period;
+		sum_period = 0;
+		
+		if (next_data_index == MEDIAN_WIDTH-1)
+			next_data_index = 0;
+		else
+			next_data_index++;
+	}
+	else{
+		sum_period++;
+	}	
+	
+	last_input = input;
+	
+	return median_filt(MEDIAN_WIDTH, period_history);
+}
+
+static uint8_t median_filt(uint8_t width, uint8_t * start){
+	uint8_t i, j, temp, buffer[width];
+	
+	//copy array
+	for(i=0;i<width;i++){
+		buffer[i] = start[i];
+	}
+	
+	//sort buffer
+    for(i=0; i<width-1; i++) {
+        for(j=i+1; j<width; j++) {
+            if(buffer[j] < buffer[i]) {
+                // swap elements
+                temp = buffer[i];
+                buffer[i] = buffer[j];
+                buffer[j] = temp;
+            }
+        }
+    }
+	
+	return buffer[width>>1];
 }
