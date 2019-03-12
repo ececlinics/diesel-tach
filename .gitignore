@@ -22,7 +22,10 @@ RemoteSystemsTempFiles/
 # ST Visual Develop
 **/Debug/
 **/Release/
+**/stm8l00j3_Programmer
 *.dep
+*.stp
+*.stw
 *.wed
 stm8_interrupt_vector.c
 
