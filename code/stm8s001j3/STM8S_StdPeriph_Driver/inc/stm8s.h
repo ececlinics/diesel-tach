@@ -48,7 +48,7 @@
  /* #define STM8S103 */      /*!< STM8S Low density devices */
  /* #define STM8S003 */      /*!< STM8S Value Line Low density devices */
  /* #define STM8S903 */      /*!< STM8S Low density devices */
-  #define STM8S001      /*!< STM8S Value Line Low denisty devices */
+#define STM8S001      /*!< STM8S Value Line Low denisty devices */
 
 /*   Tip: To avoid modifying this file each time you need to switch between these
         devices, you can define the device in your toolchain compiler preprocessor. 

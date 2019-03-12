@@ -1,17 +1,14 @@
-# Code
-This subdirectory contains the source code for the project.
+# stm8s001j3
+This subdirectory contains source code for the STM8S001J3.
 
-# Development Toolchains
-The IDE from TI, Code Composer Studio (v7 or v8), was used to write, build, and debug code for use with the MSP430G2553 MCU.
+## Development Toolchain
+**ST Visual Develop (STVD) and ST Visual Programmer (STVP)** [Link to product page.](https://www.st.com/en/development-tools/stvd-stm8.html)
 
-We used ST Visual Develop/Programmer to develop and debug code for the STM8S001J3 MCU.
+## Contents
+* [inc](inc/)
+* [src](src/)
+* [STM8S_StdPeriph_Driver](STM8S_StdPeriph_Driver/)
+* stm8_interrupt_vector.c
 
-# Files
-* **BinaryDigitalAnalysis.c**
-* **BDA.h**
-
-## BinaryDigitalAnalysis.c
-Source file.
-
-## BDA.h
-Header file for **BinaryDigitalAnalysis.c**.
+### stm8_interrupt_vector.c
+Helper interrupt vector source file for the STM8 device.
