@@ -1,8 +1,8 @@
-# inc
+# stm8s001j3/inc
 
 ## Contents
-* binary_filt.h
-* stm8s_conf.h
+* (#binary_filt.h)
+* (#stm8s_conf.h)
 
 ### binary_filt.h
 Header file for binary_filt.c.

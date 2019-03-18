@@ -6,7 +6,7 @@ This subdirectory contains source code for the MSP430G2553.
 
 ## Contents
 * [dependencies](dependencies/)
-* main.c
+* [main.c](#main.c)
 
 ### main.c
 Main source file.

@@ -35,3 +35,6 @@ stm8_interrupt_vector.c
 *.prjsm8
 *.o
 ideastm8project*
+
+# MATLAB
+*.asv
