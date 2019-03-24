@@ -28,6 +28,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
+#include "binary_filt.h"
 
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -35,11 +36,51 @@
 
 void main(void)
 {
-  /* Infinite loop */
+  __disable_interrupt();
+	WWDG_CR &= ~WWDG_CR_WDGA; // disable window watchdog
+	
+	// GPIO
+	resetGPIO();
+	GPIOA->DDR |= GPIO_PIN_1;
+	GPIOA->DDR &= ~GPIO_PIN_0;
+	
+	// HSI (16MHz) CLK
+	CLK_DeInit();
+	CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+	CLK_SYSCLKConfig(CLK_PRESCALER_HSIDIV1);
+	CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, 
+												CLK_SOURCE_HSI, 
+												DISABLE, 
+												CLK_CURRENTCLOCKSTATE_DISABLE);
+	//CLK_HSICmd(ENABLE);
+	
+	// TIM2
+	TIM2_DeInit();
+	TIM2_ITConfig(TIM2_IT_CC1, ENABLE);
+	TIM2_PrescalerConfig(TIM2_PRESCALER_8, TIM2_PSCRELOADMODE_UPDATE);
+	TIM2_SetCompare1(500);
+	
+	__enable_interrupt();
+	
+	/* Infinite loop */
   while (1)
   {
+		__wait_for_interrupt();
   }
   
+}
+
+void resetGPIO()
+{
+	GPIO_DeInit(GPIOA);
+	GPIO_DeInit(GPIOB);
+	GPIO_DeInit(GPIOC);
+	GPIO_DeInit(GPIOD);
+	GPIO_DeInit(GPIOE);
+	GPIO_DeInit(GPIOF);
+	GPIO_DeInit(GPIOG);
+	GPIO_DeInit(GPIOH);
+	GPIO_DeInit(GPIOI);
 }
 
 #ifdef USE_FULL_ASSERT
@@ -63,5 +104,23 @@ void assert_failed(u8* file, u32 line)
 }
 #endif
 
+#pragma vector = TIM2_OVR_UIF_vector
+__interrupt void TIM2_OVR_IQRHandler( void )
+{
+	period = calc_period(dyn_window_filt(GPIOA->ODR & GPIO_PIN_0));
+
+	// software PWM
+	if(i >= period >> 1)
+		GPIO_WriteLow(GPIOA, GPIO_PIN_1);
+	else
+		GPIO_WriteHigh(GPIOA, GPIO_PIN_1);
+
+	// increment i
+	if(i > period - 1)
+		i = 0;
+	else
+		i++;
+	
+}
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

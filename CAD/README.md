@@ -2,7 +2,7 @@
 This subdirectory contains CAD files for the project. We designed sensor mount and a case to house the PCB.
 
 # Software
-**Autodesk Inventor.** [Link to product page.](https://www.autodesk.com/products/inventor/overview)
+**SOLIDWORKS 2017-2018.** [Link to product page.](https://www.autodesk.com/products/inventor/overview)
 
 ## Contents
 * tach_mount.SLDPRT
