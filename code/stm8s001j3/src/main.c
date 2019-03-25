@@ -28,21 +28,36 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
+#include "iostm8s001.h"
 #include "binary_filt.h"
 
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+void resetGPIO(void);
+
 /* Private functions ---------------------------------------------------------*/
+void resetGPIO(void)
+{
+	GPIO_DeInit(GPIOA);
+	GPIO_DeInit(GPIOB);
+	GPIO_DeInit(GPIOC);
+	GPIO_DeInit(GPIOD);
+	GPIO_DeInit(GPIOE);
+	GPIO_DeInit(GPIOF);
+}
+
+uint8_t i = 0;
+uint8_t period;
 
 void main(void)
 {
-  __disable_interrupt();
+  disableInterrupts();
 	WWDG_CR &= ~WWDG_CR_WDGA; // disable window watchdog
 	
 	// GPIO
 	resetGPIO();
-	GPIOA->DDR |= GPIO_PIN_1;
-	GPIOA->DDR &= ~GPIO_PIN_0;
+	PA_DDR |= GPIO_PIN_1;
+	PA_DDR &= ~GPIO_PIN_0;
 	
 	// HSI (16MHz) CLK
 	CLK_DeInit();
@@ -60,27 +75,14 @@ void main(void)
 	TIM2_PrescalerConfig(TIM2_PRESCALER_8, TIM2_PSCRELOADMODE_UPDATE);
 	TIM2_SetCompare1(500);
 	
-	__enable_interrupt();
+	enableInterrupts();
 	
 	/* Infinite loop */
   while (1)
   {
-		__wait_for_interrupt();
+		wfi();
   }
   
-}
-
-void resetGPIO()
-{
-	GPIO_DeInit(GPIOA);
-	GPIO_DeInit(GPIOB);
-	GPIO_DeInit(GPIOC);
-	GPIO_DeInit(GPIOD);
-	GPIO_DeInit(GPIOE);
-	GPIO_DeInit(GPIOF);
-	GPIO_DeInit(GPIOG);
-	GPIO_DeInit(GPIOH);
-	GPIO_DeInit(GPIOI);
 }
 
 #ifdef USE_FULL_ASSERT
@@ -104,11 +106,13 @@ void assert_failed(u8* file, u32 line)
 }
 #endif
 
-#pragma vector = TIM2_OVR_UIF_vector
-__interrupt void TIM2_OVR_IQRHandler( void )
+//#pragma vector = TIM2_OVR_UIF_vector
+//__interrupt void TIM2_OVR_IQRHandler( void )
+INTERRUPT_HANDLER(TIM2_OVR_IQRHandler,TIM2_OVR_UIF_vector)
 {
-	period = calc_period(dyn_window_filt(GPIOA->ODR & GPIO_PIN_0));
-
+	int period = calc_period(dyn_window_filt(PA_ODR & GPIO_PIN_0));
+	int i;
+	
 	// software PWM
 	if(i >= period >> 1)
 		GPIO_WriteLow(GPIOA, GPIO_PIN_1);

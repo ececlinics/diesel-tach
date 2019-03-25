@@ -1,4 +1,2 @@
 # STM8S Standard Peripheral Driver Library
-![STM8S_StdPeriph_Drivers](stm8s-a_stdperiph_drivers_um.chm)
-
-See: [STM8S_StdPeriph_Drivers](stm8s-a_stdperiph_drivers_um.chm)
+The STM8S Standard Peripheral Driver Library contains drivers for STM8S peripherals to aid in code generation. This folder contains several peripheral drivers useful for this project.
