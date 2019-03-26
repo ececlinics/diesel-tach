@@ -86,7 +86,7 @@ uint8_t calc_period(uint8_t input){
 }
 
 static uint8_t median_filt(uint8_t width, uint8_t * start){
-	uint8_t i, j, temp, buffer[width];
+	uint8_t i, j, temp, buffer[MEDIAN_WIDTH];
 	
 	//copy array
 	for(i=0;i<width;i++){
