@@ -6,7 +6,9 @@
 #ifndef BINARY_FILT_H_
 #define BINARY_FILT_H_
 
-#include <stdint.h>
+#ifndef __STM8S_H	// "stm8s.h" already includes "stdint.h"
+	#include <stdint.h>
+#endif
 
 //dynamic window filter settings
 #define MAX_DATA_HISTORY 100         //Maximum window (max 256)

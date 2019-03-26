@@ -1,28 +1,10 @@
 /**
   ******************************************************************************
-  * @file    Project/main.c 
-  * @author  MCD Application Team
-  * @version V2.3.0
-  * @date    16-June-2017
-  * @brief   Main program body
+  * @file    src/main.c 
+  * @author  Damon
+  * @date    24-Mar-2019
+  * @brief   Main source file
    ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
   */ 
 
 
@@ -52,7 +34,7 @@ uint8_t period;
 void main(void)
 {
   disableInterrupts();
-	WWDG_CR &= ~WWDG_CR_WDGA; // disable window watchdog
+	// WWDG_CR &= ~WWDG_CR_WDGA; // disable window watchdog
 	
 	// GPIO
 	resetGPIO();
@@ -106,8 +88,6 @@ void assert_failed(u8* file, u32 line)
 }
 #endif
 
-//#pragma vector = TIM2_OVR_UIF_vector
-//__interrupt void TIM2_OVR_IQRHandler( void )
 INTERRUPT_HANDLER(TIM2_OVR_IQRHandler,TIM2_OVR_UIF_vector)
 {
 	int period = calc_period(dyn_window_filt(PA_ODR & GPIO_PIN_0));
@@ -127,4 +107,4 @@ INTERRUPT_HANDLER(TIM2_OVR_IQRHandler,TIM2_OVR_UIF_vector)
 	
 }
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/*****END OF FILE****/
