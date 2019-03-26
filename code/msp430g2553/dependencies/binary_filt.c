@@ -1,6 +1,6 @@
 #include "binary_filt.h"
 
-static uint8_t median_filt(uint8_t width, uint8_t * start);
+static uint8_t median_filt(uint8_t * start);
 
 uint8_t dyn_window_filt(uint8_t input){
 	
@@ -82,20 +82,20 @@ uint8_t calc_period(uint8_t input){
 	
 	last_input = input;
 	
-	return median_filt(MEDIAN_WIDTH, period_history);
+	return median_filt(period_history);
 }
 
-static uint8_t median_filt(uint8_t width, uint8_t * start){
+static uint8_t median_filt(uint8_t * start){
 	uint8_t i, j, temp, buffer[MEDIAN_WIDTH];
 	
 	//copy array
-	for(i=0;i<width;i++){
+	for(i=0;i<MEDIAN_WIDTH;i++){
 		buffer[i] = start[i];
 	}
 	
 	//sort buffer
-    for(i=0; i<width-1; i++) {
-        for(j=i+1; j<width; j++) {
+    for(i=0; i<MEDIAN_WIDTH-1; i++) {
+        for(j=i+1; j<MEDIAN_WIDTH; j++) {
             if(buffer[j] < buffer[i]) {
                 // swap elements
                 temp = buffer[i];
@@ -105,5 +105,5 @@ static uint8_t median_filt(uint8_t width, uint8_t * start){
         }
     }
 	
-	return buffer[width>>1];
+	return buffer[MEDIAN_WIDTH>>1];
 }
