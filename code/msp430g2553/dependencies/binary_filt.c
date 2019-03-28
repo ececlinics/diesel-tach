@@ -70,7 +70,7 @@ uint8_t calc_period(uint8_t input){
 	//sums the period and 
 	if(last_input == 0 && input == 1){
 	    if(next_data_index==0){
-            if(sum_period>period_history[MEDIAN_WIDTH-1]<<1){
+            if(sum_period<period_history[MEDIAN_WIDTH-1]>>1){
                 period_history[next_data_index] = period_history[MEDIAN_WIDTH-1];
                 sum_period = 0;
             }
@@ -80,7 +80,7 @@ uint8_t calc_period(uint8_t input){
             }
 	    }
 	    else{
-	        if(sum_period>period_history[next_data_index-1]<<1){
+	        if(sum_period<period_history[next_data_index-1]>>1){
 	            period_history[next_data_index] = period_history[next_data_index-1];
 	            sum_period = 0;
 	        }
@@ -89,9 +89,6 @@ uint8_t calc_period(uint8_t input){
 	            sum_period = 0;
 	        }
 	    }
-
-		period_history[next_data_index] = sum_period;
-		sum_period = 0;
 		
 		if (next_data_index == MEDIAN_WIDTH-1)
 			next_data_index = 0;
