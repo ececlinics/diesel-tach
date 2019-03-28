@@ -16,6 +16,12 @@ int main(void)
     P1DIR |= BIT1; //1.1 data output
     P1DIR &= ~BIT0; //1.0 data input
 
+    // initialize port 2 and 3
+    P2DIR = 0xFF;
+    P2OUT = 0x00;
+    P3DIR = 0xFF;
+    P3OUT = 0x00;
+
     //16MHz clock
     BCSCTL1 = CALBC1_16MHZ; // Set range
     DCOCTL = CALDCO_16MHZ; // Set DCO step + modulation*/
