@@ -1,21 +1,25 @@
 # Scripts
 This is the directory for scripts written for the project. So far, it contains only MATLAB m-files.
 
-## MATLAB Version
+## Contents
+* [MATLAB Version](#matlab-version)
+* [Directory](#directory)
+
+# MATLAB Version
 These m-files were generated in **MATLAB R2018a**.
 
-## Contents
-* **BinaryDigitalAnalysis.m**
-* **lowpasstest.m**
-* **plotter.m**
+# Directory
+* [BinaryDigitalAnalysis.m](binarydigitalanalysis.m)
+* [lowpasstest.m](lowpasstest.m)
+* [plotter.m](plotter.m)
 
-### BinaryDigitalAnalysis.m
+## BinaryDigitalAnalysis.m
 
 
-### import4mat.m
+## import4mat.m
 *Import* CSV data contained in named folders and for-*(4)*-*mat* into cells.
 
-#### Dependencies
+### Dependencies
 This function assumes we have four folders in the present directory named:
 * 04_Ford_F250
 * 12_Jeep_Wrangler
@@ -24,7 +28,7 @@ This function assumes we have four folders in the present directory named:
 
 Files in these folders must contain CSV files, otherwise the program will only throw warnings.
 
-### lowpasstest.m
+## lowpasstest.m
 
 
-### plotter.m
+## plotter.m

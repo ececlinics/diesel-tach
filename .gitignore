@@ -38,3 +38,6 @@ ideastm8project*
 
 # MATLAB
 *.asv
+
+# Visual Studio Code
+.vscode/
