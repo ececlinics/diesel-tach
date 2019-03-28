@@ -65,9 +65,31 @@ uint8_t dyn_window_filt(uint8_t input){
 
 uint8_t calc_period(uint8_t input){
 	static uint8_t sum_period = 0, period_history[MEDIAN_WIDTH], last_input = 0, next_data_index = 0;
+	uint8_t i;
 	
 	//sums the period and 
 	if(last_input == 0 && input == 1){
+	    if(next_data_index==0){
+            if(sum_period>period_history[MEDIAN_WIDTH-1]<<1){
+                period_history[next_data_index] = period_history[MEDIAN_WIDTH-1];
+                sum_period = 0;
+            }
+            else{
+                period_history[next_data_index] = sum_period;
+                sum_period = 0;
+            }
+	    }
+	    else{
+	        if(sum_period>period_history[next_data_index-1]<<1){
+	            period_history[next_data_index] = period_history[next_data_index-1];
+	            sum_period = 0;
+	        }
+	        else{
+	            period_history[next_data_index] = sum_period;
+	            sum_period = 0;
+	        }
+	    }
+
 		period_history[next_data_index] = sum_period;
 		sum_period = 0;
 		
@@ -77,7 +99,13 @@ uint8_t calc_period(uint8_t input){
 			next_data_index++;
 	}
 	else{
-		sum_period++;
+	    if(sum_period<254)
+	        sum_period++;
+	    else{
+	        for(i=0;i<MEDIAN_WIDTH;i++){
+	            period_history[i] = 0;
+	        }
+	    }
 	}	
 	
 	last_input = input;
