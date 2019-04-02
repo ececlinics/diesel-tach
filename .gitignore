@@ -42,3 +42,6 @@ ideastm8project*
 
 # Visual Studio Code
 .vscode/
+
+# DipTrace
+*.dch~
