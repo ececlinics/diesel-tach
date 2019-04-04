@@ -32,8 +32,10 @@ uint8_t dyn_window_filt(uint8_t input){
 	//find max pulse width out of buffer
 	for(i = 0;i<MAX_PULSEWIDTH_HISTORY;i++){
 		if(pulse_width<pulse_history[i])
-			pulse_width = pulse_history[i]>>1;
+			pulse_width = pulse_history[i];
 	}
+	//set dynamic window to half pulse width
+	pulse_width = pulse_width>>1;
 	
 	// sum dynamic window
 	if(next_data_index>=pulse_width-1){//dynamic window does not wrap around
