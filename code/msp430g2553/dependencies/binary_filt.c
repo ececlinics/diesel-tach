@@ -32,10 +32,9 @@ uint8_t dyn_window_filt(uint8_t input){
 	//find max pulse width out of buffer
 	for(i = 0;i<MAX_PULSEWIDTH_HISTORY;i++){
 		if(pulse_width<pulse_history[i])
+			//set dynamic window to one pulse width
 			pulse_width = pulse_history[i];
 	}
-	//set dynamic window to half pulse width
-	pulse_width = pulse_width>>1;
 	
 	// sum dynamic window
 	if(next_data_index>=pulse_width-1){//dynamic window does not wrap around
@@ -72,7 +71,11 @@ uint8_t calc_period(uint8_t input){
 	//sums the period and 
 	if(last_input == 0 && input == 1){
 	    if(next_data_index==0){
-            if(sum_period<period_history[MEDIAN_WIDTH-1]>>1){
+			if(period_history[MEDIAN_WIDTH-1]==0){
+				period_history[next_data_index] = sum_period;
+                sum_period = 0;
+			}			
+            else if(sum_period<period_history[MEDIAN_WIDTH-1]>>1){
                 period_history[next_data_index] = period_history[MEDIAN_WIDTH-1];
                 sum_period = 0;
             }
@@ -82,7 +85,11 @@ uint8_t calc_period(uint8_t input){
             }
 	    }
 	    else{
-	        if(sum_period<period_history[next_data_index-1]>>1){
+	        if(period_history[next_data_index-1]==0){
+	            period_history[next_data_index] = sum_period;
+	            sum_period = 0;
+	        }	        			
+			else if(sum_period<period_history[next_data_index-1]>>1){
 	            period_history[next_data_index] = period_history[next_data_index-1];
 	            sum_period = 0;
 	        }
