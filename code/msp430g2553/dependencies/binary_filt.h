@@ -12,7 +12,7 @@
 
 //dynamic window filter settings
 #define MAX_DATA_HISTORY 100         //Maximum window (max 256)
-#define MAX_PULSEWIDTH_HISTORY 5	//Max history of pulse widths
+#define MAX_PULSEWIDTH_HISTORY 10	//Max history of pulse widths
 
 //pulse width median filter settings
 #define MEDIAN_WIDTH 5
