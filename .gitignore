@@ -25,9 +25,11 @@ RemoteSystemsTempFiles/
 **/Release/
 **/stm8l00j3_Programmer
 *.dep
+*.pdb
 *.stp
 *.stw
 *.wed
+*.wdb
 stm8_interrupt_vector.c
 
 # Cosmic STM

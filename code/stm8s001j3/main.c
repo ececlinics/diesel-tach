@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    src/main.c 
-  * @author  Damon
+  * @author  Damon Boorstein
   * @date    24-Mar-2019
   * @brief   Main source file
    ******************************************************************************
@@ -14,6 +14,8 @@
 #include "binary_filt.h"
 
 /* Private defines -----------------------------------------------------------*/
+#define INITIAL_PULSE 0 // --- Damon 4/16/19: What's a good default PWM width?
+
 /* Private function prototypes -----------------------------------------------*/
 void resetGPIO(void);
 
@@ -34,6 +36,7 @@ uint8_t period;
 void main(void)
 {
   disableInterrupts();
+	/* ----- Damon 4/16/19: Need to enable/reset Independent Watchdog (IWDG) periph in this loop ----- */
 	// WWDG_CR &= ~WWDG_CR_WDGA; // disable window watchdog
 	
 	// GPIO
@@ -53,9 +56,23 @@ void main(void)
 	
 	// TIM2
 	TIM2_DeInit();
+	/* ----- Damon 4/16/19: This code was used for software PWM, we need HARDWARE PWM ------------------------
 	TIM2_ITConfig(TIM2_IT_CC1, ENABLE);
 	TIM2_PrescalerConfig(TIM2_PRESCALER_8, TIM2_PSCRELOADMODE_UPDATE);
 	TIM2_SetCompare1(500);
+	*/
+	TIM2_PWMInit( TIM2_CHANNEL_3,
+								 ,
+								 ,
+								 );
+	TIM2_OC3Init( TIM2_OCMODE_PWM1,					// Initialize output on channel 3
+								TIM2_OUTPUTSTATE_ENABLE,
+								INITIAL_PULSE,
+								TIM2_OCPOLARITY_HIGH)
+	TIM2_SelectOCxM(TIM2_CHANNEL_3, TIM2_OCMODE_PWM1); // Select output compare mode PWM1 on channel 3 (pin 5)
+	TIM2_CCxCmd(TIM2_CHANNEL_3, ENABLE); // Enable capture compare on channel 3
+	TIM2_Cmd(ENABLE); // Enable TIM2
+	/* ^--------------------------------------TIM2 hardware PWM----------------------------------------------^ */
 	
 	enableInterrupts();
 	
