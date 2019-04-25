@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    src/main.c 
+  * @file    main.c 
   * @author  Damon Boorstein
   * @date    24-Mar-2019
   * @brief   Main source file
@@ -14,6 +14,8 @@
 #include "binary_filt.h"
 
 /* Private defines -----------------------------------------------------------*/
+#define _GPIO 1
+#define _TIM2 1
 #define INITIAL_PULSE 0 // --- Damon 4/16/19: What's a good default PWM width?
 
 /* Private function prototypes -----------------------------------------------*/
@@ -37,7 +39,6 @@ void main(void)
 {
   disableInterrupts();
 	/* ----- Damon 4/16/19: Need to enable/reset Independent Watchdog (IWDG) periph in this loop ----- */
-	// WWDG_CR &= ~WWDG_CR_WDGA; // disable window watchdog
 	
 	// GPIO
 	resetGPIO();
@@ -58,17 +59,18 @@ void main(void)
 	TIM2_DeInit();
 	/* ----- Damon 4/16/19: This code was used for software PWM, we need HARDWARE PWM ------------------------
 	TIM2_ITConfig(TIM2_IT_CC1, ENABLE);
-	TIM2_PrescalerConfig(TIM2_PRESCALER_8, TIM2_PSCRELOADMODE_UPDATE);
 	TIM2_SetCompare1(500);
 	*/
-	TIM2_PWMInit( TIM2_CHANNEL_3,
-								 ,
-								 ,
-								 );
+	TIM2_PrescalerConfig(TIM2_PRESCALER_8, TIM2_PSCRELOADMODE_UPDATE);
+	TIM2_PWMIConfig(TIM2_CHANNEL_1,							// Config PWM input on Channel 1
+									TIM2_ICPOLARITY_RISING,			// polarity = rising edge
+									TIM2_ICSELECTION_DIRECTTI,	// 
+									TIM2_ICPSC_DIV8,
+									0);						//
 	TIM2_OC3Init( TIM2_OCMODE_PWM1,					// Initialize output on channel 3
 								TIM2_OUTPUTSTATE_ENABLE,
 								INITIAL_PULSE,
-								TIM2_OCPOLARITY_HIGH)
+								TIM2_OCPOLARITY_LOW);
 	TIM2_SelectOCxM(TIM2_CHANNEL_3, TIM2_OCMODE_PWM1); // Select output compare mode PWM1 on channel 3 (pin 5)
 	TIM2_CCxCmd(TIM2_CHANNEL_3, ENABLE); // Enable capture compare on channel 3
 	TIM2_Cmd(ENABLE); // Enable TIM2
@@ -79,7 +81,7 @@ void main(void)
 	/* Infinite loop */
   while (1)
   {
-		wfi();
+		// wfi(); // wait for interrupt
   }
   
 }
@@ -105,6 +107,7 @@ void assert_failed(u8* file, u32 line)
 }
 #endif
 
+/* ------ Damon 4/16/19: interrupt handler for TIM2 software PWM --------
 INTERRUPT_HANDLER(TIM2_OVR_IQRHandler,TIM2_OVR_UIF_vector)
 {
 	int period = calc_period(dyn_window_filt(PA_ODR & GPIO_PIN_0));
@@ -123,5 +126,6 @@ INTERRUPT_HANDLER(TIM2_OVR_IQRHandler,TIM2_OVR_UIF_vector)
 		i++;
 	
 }
+*/
 
 /*****END OF FILE****/
