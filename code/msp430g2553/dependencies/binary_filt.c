@@ -18,7 +18,7 @@ uint8_t dyn_window_filt(uint8_t input){
 	        pulse_sum += 1;
 	}
 	else if (pulse_sum>0){
-		pulse_history[next_pulse_index]=pulse_sum;
+		pulse_history[next_pulse_index]=pulse_sum>>1;
 		pulse_sum = 0;
 		
 		//increment pulse history index
@@ -76,7 +76,7 @@ uint8_t calc_period(uint8_t input){
                 sum_period = 0;
 			}			
             else if(sum_period<period_history[MEDIAN_WIDTH-1]>>1){
-                period_history[next_data_index] = period_history[MEDIAN_WIDTH-1];
+                period_history[next_data_index] = period_history[MEDIAN_WIDTH-1]-2;
                 sum_period = 0;
             }
             else{
@@ -84,13 +84,13 @@ uint8_t calc_period(uint8_t input){
                 sum_period = 0;
             }
 	    }
-	    else{
+	   else{
 	        if(period_history[next_data_index-1]==0){
 	            period_history[next_data_index] = sum_period;
 	            sum_period = 0;
 	        }	        			
 			else if(sum_period<period_history[next_data_index-1]>>1){
-	            period_history[next_data_index] = period_history[next_data_index-1];
+	            period_history[next_data_index] = period_history[next_data_index-1]-2;
 	            sum_period = 0;
 	        }
 	        else{
